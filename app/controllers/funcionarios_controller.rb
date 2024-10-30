@@ -1,70 +1,52 @@
 class FuncionariosController < ApplicationController
-  before_action :set_funcionario, only: %i[ show edit update destroy ]
+  before_action :set_funcionario, only: %i[ show update destroy ]
+  skip_before_action :verify_authenticity_token
 
   # GET /funcionarios or /funcionarios.json
   def index
     @funcionarios = Funcionario.all
+    render json: @funcionarios
   end
 
   # GET /funcionarios/1 or /funcionarios/1.json
   def show
-  end
-
-  # GET /funcionarios/new
-  def new
-    @funcionario = Funcionario.new
-  end
-
-  # GET /funcionarios/1/edit
-  def edit
+    render json: @funcionario
   end
 
   # POST /funcionarios or /funcionarios.json
   def create
     @funcionario = Funcionario.new(funcionario_params)
-
-    respond_to do |format|
-      if @funcionario.save
-        format.html { redirect_to funcionario_url(@funcionario), notice: "Funcionario was successfully created." }
-        format.json { render :show, status: :created, location: @funcionario }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @funcionario.errors, status: :unprocessable_entity }
-      end
+    if @funcionario.save
+      render json: @funcionario, status: :created, location: @funcionario
+    else
+      render json: @funcionario.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /funcionarios/1 or /funcionarios/1.json
   def update
-    respond_to do |format|
-      if @funcionario.update(funcionario_params)
-        format.html { redirect_to funcionario_url(@funcionario), notice: "Funcionario was successfully updated." }
-        format.json { render :show, status: :ok, location: @funcionario }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @funcionario.errors, status: :unprocessable_entity }
-      end
+    if @funcionario.update(funcionario_params)
+      render json: @funcionario, status: :ok, location: @funcionario
+    else
+      render json: @funcionario.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /funcionarios/1 or /funcionarios/1.json
   def destroy
     @funcionario.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to funcionarios_url, notice: "Funcionario was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_funcionario
-      @funcionario = Funcionario.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def funcionario_params
-      params.require(:funcionario).permit(:nome, :contato, :cargo, :login, :senha)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_funcionario
+    @funcionario = Funcionario.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def funcionario_params
+    params.require(:funcionario).permit(:nome, :contato, :cargo, :login, :senha)
+  end
 end

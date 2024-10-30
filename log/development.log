@@ -647,3 +647,138 @@ Processing by AnimalsController#index as */*
 Completed 200 OK in 6ms (Views: 3.9ms | ActiveRecord: 1.2ms | Allocations: 904)
 
 
+Started GET "/funcionarios" for 172.24.0.1 at 2024-10-30 12:50:47 +0000
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by FuncionariosController#index as */*
+No template found for FuncionariosController#index, rendering head :no_content
+Completed 204 No Content in 124ms (ActiveRecord: 0.0ms | Allocations: 14976)
+
+
+Started POST "/funcionarios" for 172.24.0.1 at 2024-10-30 12:51:46 +0000
+Processing by FuncionariosController#create as */*
+Completed 400 Bad Request in 1ms (ActiveRecord: 0.0ms | Allocations: 265)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: funcionario):
+  
+app/controllers/funcionarios_controller.rb:68:in `funcionario_params'
+app/controllers/funcionarios_controller.rb:24:in `create'
+Started POST "/funcionarios" for 172.24.0.1 at 2024-10-30 12:58:23 +0000
+Processing by FuncionariosController#create as */*
+  Parameters: {"nome"=>"João Silva", "contato"=>"joao.silva@example.com", "cargo"=>"Gerente", "senha"=>"senhaSegura123", "login"=>"joaosilva", "funcionario"=>{"nome"=>"João Silva", "contato"=>"joao.silva@example.com", "cargo"=>"Gerente", "login"=>"joaosilva", "senha"=>"senhaSegura123"}}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/funcionarios_controller.rb:27:in `block in create'
+  [1m[36mFuncionario Exists? (3.1ms)[0m  [1m[34mSELECT 1 AS one FROM "funcionarios" WHERE "funcionarios"."login" = $1 LIMIT $2[0m  [["login", "joaosilva"], ["LIMIT", 1]]
+  ↳ app/controllers/funcionarios_controller.rb:27:in `block in create'
+  [1m[36mFuncionario Create (1.7ms)[0m  [1m[32mINSERT INTO "funcionarios" ("nome", "contato", "cargo", "login", "senha", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["nome", "João Silva"], ["contato", "joao.silva@example.com"], ["cargo", "Gerente"], ["login", "joaosilva"], ["senha", "senhaSegura123"], ["created_at", "2024-10-30 12:58:23.557034"], ["updated_at", "2024-10-30 12:58:23.557034"]]
+  ↳ app/controllers/funcionarios_controller.rb:27:in `block in create'
+  [1m[36mTRANSACTION (4.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/funcionarios_controller.rb:27:in `block in create'
+Redirected to 
+Completed 500 Internal Server Error in 78ms (ActiveRecord: 30.5ms | Allocations: 25871)
+
+
+  
+NoMethodError (undefined method `flash' for #<ActionDispatch::Request POST "http://localhost:3000/funcionarios" for 172.24.0.1>):
+  
+app/controllers/funcionarios_controller.rb:28:in `block (2 levels) in create'
+app/controllers/funcionarios_controller.rb:26:in `create'
+Started POST "/funcionarios" for 172.24.0.1 at 2024-10-30 12:59:06 +0000
+Processing by FuncionariosController#create as */*
+  Parameters: {"nome"=>"João Silva", "contato"=>"joao.silva@example.com", "cargo"=>"Gerente", "senha"=>"senhaSegura123", "login"=>"joaosilva", "funcionario"=>{"nome"=>"João Silva", "contato"=>"joao.silva@example.com", "cargo"=>"Gerente", "login"=>"joaosilva", "senha"=>"senhaSegura123"}}
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/funcionarios_controller.rb:27:in `block in create'
+  [1m[36mFuncionario Exists? (3.3ms)[0m  [1m[34mSELECT 1 AS one FROM "funcionarios" WHERE "funcionarios"."login" = $1 LIMIT $2[0m  [["login", "joaosilva"], ["LIMIT", 1]]
+  ↳ app/controllers/funcionarios_controller.rb:27:in `block in create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/funcionarios_controller.rb:27:in `block in create'
+Completed 500 Internal Server Error in 35ms (ActiveRecord: 12.4ms | Allocations: 10091)
+
+
+  
+ActionView::MissingTemplate (Missing template funcionarios/new, application/new with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby]}.
+
+Searched in:
+  * "/app/app/views"
+  * "/usr/local/bundle/gems/actiontext-7.1.4.2/app/views"
+  * "/usr/local/bundle/gems/actionmailbox-7.1.4.2/app/views"
+
+Did you mean?  rails/conductor/action_mailbox/inbound_emails/new
+               rails/conductor/action_mailbox/inbound_emails/sources/new
+               rails/conductor/action_mailbox/inbound_emails/show
+               rails/conductor/action_mailbox/inbound_emails/index
+               layouts/rails/conductor
+               layouts/mailer):
+  
+app/controllers/funcionarios_controller.rb:31:in `block (2 levels) in create'
+app/controllers/funcionarios_controller.rb:26:in `create'
+Started POST "/funcionarios" for 172.24.0.1 at 2024-10-30 13:03:10 +0000
+Processing by FuncionariosController#create as */*
+  Parameters: {"nome"=>"João Silva", "contato"=>"joao.silva@example.com", "cargo"=>"Gerente", "senha"=>"senhaSegura123", "login"=>"joaosilva", "funcionario"=>{"nome"=>"João Silva", "contato"=>"joao.silva@example.com", "cargo"=>"Gerente", "login"=>"joaosilva", "senha"=>"senhaSegura123"}}
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/funcionarios_controller.rb:19:in `create'
+  [1m[36mFuncionario Exists? (3.2ms)[0m  [1m[34mSELECT 1 AS one FROM "funcionarios" WHERE "funcionarios"."login" = $1 LIMIT $2[0m  [["login", "joaosilva"], ["LIMIT", 1]]
+  ↳ app/controllers/funcionarios_controller.rb:19:in `create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/funcionarios_controller.rb:19:in `create'
+Completed 422 Unprocessable Content in 41ms (Views: 12.9ms | ActiveRecord: 20.3ms | Allocations: 7355)
+
+
+Started POST "/funcionarios" for 172.24.0.1 at 2024-10-30 13:04:11 +0000
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by FuncionariosController#create as */*
+  Parameters: {"nome"=>"João Silva", "contato"=>"joao.silva@example.com", "cargo"=>"Gerente", "senha"=>"senhaSegura123", "login"=>"joaosilva", "funcionario"=>{"nome"=>"João Silva", "contato"=>"joao.silva@example.com", "cargo"=>"Gerente", "login"=>"joaosilva", "senha"=>"senhaSegura123"}}
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/funcionarios_controller.rb:19:in `create'
+  [1m[36mFuncionario Exists? (4.0ms)[0m  [1m[34mSELECT 1 AS one FROM "funcionarios" WHERE "funcionarios"."login" = $1 LIMIT $2[0m  [["login", "joaosilva"], ["LIMIT", 1]]
+  ↳ app/controllers/funcionarios_controller.rb:19:in `create'
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/funcionarios_controller.rb:19:in `create'
+Completed 422 Unprocessable Content in 57ms (Views: 3.6ms | ActiveRecord: 26.1ms | Allocations: 27710)
+
+
+Started GET "/funcionarios" for 172.24.0.1 at 2024-10-30 13:04:14 +0000
+Processing by FuncionariosController#index as */*
+  [1m[36mFuncionario Load (0.7ms)[0m  [1m[34mSELECT "funcionarios".* FROM "funcionarios"[0m
+  ↳ app/controllers/funcionarios_controller.rb:8:in `index'
+Completed 200 OK in 3ms (Views: 2.0ms | ActiveRecord: 0.7ms | Allocations: 1184)
+
+
+Started PATCH "/funcionarios/1" for 172.24.0.1 at 2024-10-30 13:05:07 +0000
+Processing by FuncionariosController#update as */*
+  Parameters: {"nome"=>"João Silva Souza", "id"=>"1", "funcionario"=>{"nome"=>"João Silva Souza"}}
+  [1m[36mFuncionario Load (0.5ms)[0m  [1m[34mSELECT "funcionarios".* FROM "funcionarios" WHERE "funcionarios"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/funcionarios_controller.rb:45:in `set_funcionario'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/funcionarios_controller.rb:28:in `update'
+  [1m[36mFuncionario Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "funcionarios" WHERE "funcionarios"."login" = $1 AND "funcionarios"."id" != $2 LIMIT $3[0m  [["login", "joaosilva"], ["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/funcionarios_controller.rb:28:in `update'
+  [1m[36mFuncionario Update (1.3ms)[0m  [1m[33mUPDATE "funcionarios" SET "nome" = $1, "updated_at" = $2 WHERE "funcionarios"."id" = $3[0m  [["nome", "João Silva Souza"], ["updated_at", "2024-10-30 13:05:07.608552"], ["id", 1]]
+  ↳ app/controllers/funcionarios_controller.rb:28:in `update'
+  [1m[36mTRANSACTION (4.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/funcionarios_controller.rb:28:in `update'
+Completed 200 OK in 27ms (Views: 0.8ms | ActiveRecord: 13.1ms | Allocations: 4668)
+
+
+Started DELETE "/funcionarios/1" for 172.24.0.1 at 2024-10-30 13:06:06 +0000
+Processing by FuncionariosController#destroy as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mFuncionario Load (0.7ms)[0m  [1m[34mSELECT "funcionarios".* FROM "funcionarios" WHERE "funcionarios"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/funcionarios_controller.rb:45:in `set_funcionario'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/funcionarios_controller.rb:37:in `destroy'
+  [1m[36mFuncionario Destroy (2.9ms)[0m  [1m[31mDELETE FROM "funcionarios" WHERE "funcionarios"."id" = $1[0m  [["id", 1]]
+  ↳ app/controllers/funcionarios_controller.rb:37:in `destroy'
+  [1m[36mTRANSACTION (4.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/funcionarios_controller.rb:37:in `destroy'
+Completed 204 No Content in 15ms (ActiveRecord: 8.5ms | Allocations: 2336)
+
+
+Started GET "/funcionarios" for 172.24.0.1 at 2024-10-30 13:06:21 +0000
+Processing by FuncionariosController#index as */*
+  [1m[36mFuncionario Load (0.6ms)[0m  [1m[34mSELECT "funcionarios".* FROM "funcionarios"[0m
+  ↳ app/controllers/funcionarios_controller.rb:8:in `index'
+Completed 200 OK in 3ms (Views: 1.6ms | ActiveRecord: 0.6ms | Allocations: 787)
+
+
