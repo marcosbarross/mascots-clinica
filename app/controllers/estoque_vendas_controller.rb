@@ -16,6 +16,9 @@ class EstoqueVendasController < ApplicationController
   # POST /estoque_vendas or /estoque_vendas.json
   def create
     @estoque_venda = EstoqueVenda.new(estoque_venda_params)
+    if @estoque_venda.quantidade_venda == nil
+      @estoque_venda.quantidade_venda = 0
+    end
     if @estoque_venda.save
       render json: @estoque_venda, status: :created, location: @estoque_venda
     else

@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   resources :estoque_vendas
   resources :tutors
   resources :funcionarios
+
+
+  patch '/vender_produto/:id', controller: 'funcionarios', action: 'vender_produto'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

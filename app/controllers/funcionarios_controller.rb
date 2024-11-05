@@ -38,6 +38,19 @@ class FuncionariosController < ApplicationController
     head :no_content
   end
 
+  def vender_produto 
+    id = params[:id]
+    quantidade = params[:quantidade]
+    estoque_venda = EstoqueVenda.find_by(id: id)
+
+    if estoque_venda.retira_n_estoque(quantidade)
+      render json: {message: "Produto vendido com sucesso!"}, status: 200
+    else
+      render json: {error: 'Não há produtos suficientes no estoque'}, status: 402
+    end
+    # EstoqueVenda.retira_n_estoque(id_produto, quantidade)
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -48,5 +61,5 @@ class FuncionariosController < ApplicationController
   # Only allow a list of trusted parameters through.
   def funcionario_params
     params.require(:funcionario).permit(:nome, :contato, :cargo, :login, :senha)
-  end
+  end  
 end
