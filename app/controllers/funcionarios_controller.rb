@@ -51,6 +51,15 @@ class FuncionariosController < ApplicationController
     # EstoqueVenda.retira_n_estoque(id_produto, quantidade)
   end
 
+  def adicionar_mais_estoque
+    id = params[:id]
+    quantidade = params[:quantidade]
+    estoque_venda = EstoqueVenda.find_by(id: id)
+
+    estoque_venda.adiciona_n_estoque quantidade
+    render json: {message: "#{quantidade} adicionada a #{estoque_venda.medicamento}"}
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

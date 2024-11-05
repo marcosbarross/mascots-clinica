@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
 
   patch '/vender_produto/:id', controller: 'funcionarios', action: 'vender_produto'
+  patch '/adicionar_mais_estoque/:id', controller: 'funcionarios', action: 'adicionar_mais_estoque'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
