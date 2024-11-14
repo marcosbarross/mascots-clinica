@@ -1,5 +1,5 @@
 class TutorsController < ApplicationController
-  before_action :set_tutor, only: %i[show update destroy]
+  before_action :set_tutor, only: %i[show update destroy animals]
   skip_before_action :verify_authenticity_token  # Se necessário para desabilitar CSRF para testes via Postman
 
   # GET /tutors.json
@@ -38,6 +38,13 @@ class TutorsController < ApplicationController
     head :no_content
   end
 
+# GET /tutors/:id/animals
+  # Exibe todos os animais associados a um tutor específico
+  def animals
+    @animals = @tutor.animals
+    render json: @animals
+  end
+
   private
 
   def set_tutor
@@ -47,4 +54,5 @@ class TutorsController < ApplicationController
   def tutor_params
     params.require(:tutor).permit(:nome, :endereco, :telefone, :email)
   end
+  
 end

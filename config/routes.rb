@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   resources :tutors
   resources :funcionarios
 
+  resources :tutors do
+    get 'animals', on: :member # cria o endpoint /tutors/:id/animals
+  end
 
   patch '/vender_produto/:id', controller: 'funcionarios', action: 'vender_produto'
   patch '/adicionar_mais_estoque/:id', controller: 'funcionarios', action: 'adicionar_mais_estoque'
