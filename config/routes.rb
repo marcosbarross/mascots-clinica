@@ -3,11 +3,12 @@ Rails.application.routes.draw do
   resources :internamentos
   resources :exames
   resources :prescricao_medicas
-  resources :consulta
+  resources :consultas
   resources :animals
   resources :estoque_vendas
   resources :tutors
   resources :funcionarios
+  resources :cargos
 
 
   patch '/vender_produto/:id', controller: 'funcionarios', action: 'vender_produto'

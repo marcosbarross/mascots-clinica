@@ -26,16 +26,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_08_165106) do
     t.index ["tutor_id"], name: "index_animals_on_tutor_id"
   end
 
-  create_table "consulta", force: :cascade do |t|
-    t.bigint "veterinario_id"
+  create_table "cargos", force: :cascade do |t|
+    t.string "nome_cargo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "consultas", force: :cascade do |t|
+    t.bigint "funcionario_id"
     t.bigint "animal_id", null: false
     t.date "data"
     t.time "hora"
     t.text "observacao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["animal_id"], name: "index_consulta_on_animal_id"
-    t.index ["veterinario_id"], name: "index_consulta_on_veterinario_id"
+    t.index ["animal_id"], name: "index_consultas_on_animal_id"
+    t.index ["funcionario_id"], name: "index_consultas_on_funcionario_id"
   end
 
   create_table "estoque_internamentos", force: :cascade do |t|
@@ -73,11 +79,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_08_165106) do
   create_table "funcionarios", force: :cascade do |t|
     t.string "nome"
     t.string "contato"
-    t.string "cargo"
     t.string "login"
     t.string "senha"
+    t.bigint "cargo_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["cargo_id"], name: "index_funcionarios_on_cargo_id"
   end
 
   create_table "internamentos", force: :cascade do |t|
@@ -113,10 +120,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_08_165106) do
   end
 
   add_foreign_key "animals", "tutors"
-  add_foreign_key "consulta", "animals"
-  add_foreign_key "consulta", "funcionarios", column: "veterinario_id"
+  add_foreign_key "consultas", "animals"
+  add_foreign_key "consultas", "funcionarios"
   add_foreign_key "estoque_internamentos", "internamentos"
-  add_foreign_key "exames", "consulta", column: "consulta_id"
-  add_foreign_key "internamentos", "consulta", column: "consulta_id"
-  add_foreign_key "prescricao_medicas", "consulta", column: "consulta_id"
+  add_foreign_key "exames", "consultas"
+  add_foreign_key "funcionarios", "cargos"
+  add_foreign_key "internamentos", "consultas"
+  add_foreign_key "prescricao_medicas", "consultas"
 end
