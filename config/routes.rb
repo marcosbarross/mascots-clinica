@@ -16,6 +16,10 @@ Rails.application.routes.draw do
   resources :animals do
     get 'consulta', on: :member # Cria a rota /animals/:id/consultations
   end
+
+  resources :consulta do
+    get 'veterinario/:id', on: :collection, action: 'by_veterinario'
+  end
   
 
   patch '/vender_produto/:id', controller: 'funcionarios', action: 'vender_produto'

@@ -1,5 +1,6 @@
 class ConsultaController < ApplicationController
   before_action :set_consulta, only: %i[ show update destroy ]
+  before_action :set_veterinario, only: [:by_veterinario]
   skip_before_action :verify_authenticity_token
 
   # GET /consulta or /consulta.json
@@ -37,6 +38,11 @@ class ConsultaController < ApplicationController
     @consulta.destroy!
     head :no_content
   end
+  
+  def by_veterinario
+    @consultas = Consulta.where(veterinario_id: params[:id])
+    render json: @consultas
+  end
 
   private
 
@@ -49,4 +55,9 @@ class ConsultaController < ApplicationController
   def consulta_params
     params.require(:consulta).permit(:veterinario, :animal_id, :data, :hora, :observacao)
   end
+
+  def set_veterinario
+    @veterinario = params[:veterinario]
+  end
+
 end
