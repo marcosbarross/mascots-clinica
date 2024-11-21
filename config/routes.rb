@@ -20,7 +20,10 @@ Rails.application.routes.draw do
   resources :consulta do
     get 'veterinario/:id', on: :collection, action: 'by_veterinario'
   end
-  
+
+  resources :consulta do
+    get 'animais_atendidos/:veterinario_id', on: :collection, action: 'animais_atendidos'
+  end
 
   patch '/vender_produto/:id', controller: 'funcionarios', action: 'vender_produto'
   patch '/adicionar_mais_estoque/:id', controller: 'funcionarios', action: 'adicionar_mais_estoque'
