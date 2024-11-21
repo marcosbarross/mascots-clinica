@@ -13,6 +13,11 @@ Rails.application.routes.draw do
     get 'animals', on: :member # cria o endpoint /tutors/:id/animals
   end
 
+  resources :animals do
+    get 'consulta', on: :member # Cria a rota /animals/:id/consultations
+  end
+  
+
   patch '/vender_produto/:id', controller: 'funcionarios', action: 'vender_produto'
   patch '/adicionar_mais_estoque/:id', controller: 'funcionarios', action: 'adicionar_mais_estoque'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
