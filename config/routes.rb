@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount_devise_token_auth_for 'User', at: 'auth'
+
   resources :estoque_internamentos
   resources :internamentos
   resources :exames
@@ -6,22 +8,16 @@ Rails.application.routes.draw do
   resources :consultas
   resources :animals
   resources :estoque_vendas
-  resources :tutors
-  resources :funcionarios
-  resources :cargos
-
   resources :tutors do
     get 'animals', on: :member # cria o endpoint /tutors/:id/animals
   end
+  resources :funcionarios
+  resources :cargos
 
   patch '/vender_produto/:id', controller: 'funcionarios', action: 'vender_produto'
   patch '/adicionar_mais_estoque/:id', controller: 'funcionarios', action: 'adicionar_mais_estoque'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Defines the root path route ("/")
   # root "posts#index"
 end
