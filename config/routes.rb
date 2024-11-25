@@ -18,11 +18,11 @@ Rails.application.routes.draw do
     get 'consulta', on: :member # Cria a rota /animals/:id/consultations
   end
 
-  resources :consulta do
+  resources :consultas do
     get 'veterinario/:id', on: :collection, action: 'by_veterinario'
   end
 
-  resources :consulta do
+  resources :consultas do
     get 'animais_atendidos/:veterinario_id', on: :collection, action: 'animais_atendidos'
   end
 
