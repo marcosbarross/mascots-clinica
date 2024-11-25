@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_08_165106) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_24_143049) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,16 +26,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_08_165106) do
     t.index ["tutor_id"], name: "index_animals_on_tutor_id"
   end
 
-  create_table "consulta", force: :cascade do |t|
-    t.bigint "veterinario_id"
+  create_table "cargos", force: :cascade do |t|
+    t.string "nome_cargo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "consultas", force: :cascade do |t|
+    t.bigint "funcionario_id"
     t.bigint "animal_id", null: false
     t.date "data"
     t.time "hora"
     t.text "observacao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["animal_id"], name: "index_consulta_on_animal_id"
-    t.index ["veterinario_id"], name: "index_consulta_on_veterinario_id"
+    t.index ["animal_id"], name: "index_consultas_on_animal_id"
+    t.index ["funcionario_id"], name: "index_consultas_on_funcionario_id"
   end
 
   create_table "estoque_internamentos", force: :cascade do |t|
@@ -73,11 +79,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_08_165106) do
   create_table "funcionarios", force: :cascade do |t|
     t.string "nome"
     t.string "contato"
-    t.string "cargo"
     t.string "login"
     t.string "senha"
+    t.bigint "cargo_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["cargo_id"], name: "index_funcionarios_on_cargo_id"
   end
 
   create_table "internamentos", force: :cascade do |t|
@@ -112,11 +119,36 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_08_165106) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.datetime "last_sign_in_at"
+    t.integer "sign_in_count", default: 0
+    t.string "authentication_token"
+    t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
+  end
+
   add_foreign_key "animals", "tutors"
-  add_foreign_key "consulta", "animals"
-  add_foreign_key "consulta", "funcionarios", column: "veterinario_id"
+  add_foreign_key "consultas", "animals"
+  add_foreign_key "consultas", "funcionarios"
   add_foreign_key "estoque_internamentos", "internamentos"
-  add_foreign_key "exames", "consulta", column: "consulta_id"
-  add_foreign_key "internamentos", "consulta", column: "consulta_id"
-  add_foreign_key "prescricao_medicas", "consulta", column: "consulta_id"
+  add_foreign_key "exames", "consultas"
+  add_foreign_key "funcionarios", "cargos"
+  add_foreign_key "internamentos", "consultas"
+  add_foreign_key "prescricao_medicas", "consultas"
 end
