@@ -20,10 +20,12 @@ Rails.application.routes.draw do
 
   resources :consultas do
     get 'veterinario/:id', on: :collection, action: 'by_veterinario'
+    get 'by_animal/:animal_id', on: :collection, action: 'by_animal'
+    get 'by_tutor/:tutor_id', on: :collection, action: 'by_tutor'
   end
 
   resources :consultas do
-    get 'animais_atendidos/:veterinario_id', on: :collection, action: 'animais_atendidos'
+    get 'animais_atendidos/:funcionario_id', on: :collection, action: 'animais_atendidos'
   end
 
   patch '/vender_produto/:id', controller: 'funcionarios', action: 'vender_produto'

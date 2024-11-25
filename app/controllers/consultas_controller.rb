@@ -43,6 +43,30 @@ class ConsultasController < ApplicationController
     @consultas = Consulta.where(funcionario_id: params[:id])
     render json: @consultas
   end
+  
+  # GET /consultas/by_animal/:animal_id
+  # Retorna todas as consultas associadas a um animal específico
+  def by_animal
+    begin
+      @consultas = Consulta.where(animal_id: params[:animal_id])
+      render json: @consultas, status: :ok
+    rescue => e
+      render json: { error: "Erro ao buscar consultas do animal: #{e.message}" }, status: :internal_server_error
+    end
+  end
+
+  # GET /consultas/by_tutor/:tutor_id
+  # Retorna todas as consultas de todos os animais associados a um tutor específico
+  def by_tutor
+    begin
+      @animals = Animal.where(tutor_id: params[:tutor_id])
+
+      @consultas = Consulta.where(animal_id: @animals.pluck(:id))
+      render json: @consultas, status: :ok
+    rescue => e
+      render json: { error: "Erro ao buscar consultas do tutor: #{e.message}" }, status: :internal_server_error
+    end
+  end
 
   def animais_atendidos
     begin
