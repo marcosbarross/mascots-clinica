@@ -38,12 +38,44 @@ class ExamesController < ApplicationController
     head :no_content
   end
 
-  private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_exame
-    @exame = Exame.find(params[:id])
+  # GET /exames/by_consulta/:consulta_id
+  def by_consulta
+    @exames = Exame.where(consulta_id: params[:consulta_id])
+    render json: @exames, status: :ok
   end
+
+  # GET /exames/by_animal/:animal_id
+  def by_animal
+    @consultas = Consulta.where(animal_id: params[:animal_id])
+    @exames = Exame.where(consulta_id: @consultas.pluck(:id))
+    render json: @exames, status: :ok
+  end
+
+  # GET /exames/by_funcionario/:funcionario_id
+  def by_funcionario
+    @consultas = Consulta.where(funcionario_id: params[:funcionario_id])
+    @exames = Exame.where(consulta_id: @consultas.pluck(:id))
+    render json: @exames, status: :ok
+  end
+
+  # GET /exames/by_tutor/:tutor_id
+  def by_tutor
+    begin
+      # Animais associados ao tutor
+      @animals = Animal.where(tutor_id: params[:tutor_id])
+
+      # Consultas associadas aos animais do tutor
+      @consultas = Consulta.where(animal_id: @animals.pluck(:id))
+
+      # Exames associados às consultas
+      @exames = Exame.where(consulta_id: @consultas.pluck(:id))
+      render json: @exames, status: :ok
+    rescue => e
+      render json: { error: "Erro ao buscar exames do tutor: #{e.message}" }, status: :internal_server_error
+    end
+  end
+
+  private
 
   # Only allow a list of trusted parameters through.
   def exame_params

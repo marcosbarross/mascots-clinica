@@ -3,19 +3,23 @@ Rails.application.routes.draw do
 
   resources :estoque_internamentos
   resources :internamentos
-  resources :exames
   resources :prescricao_medicas
-  resources :consultas
-  resources :animals
   resources :estoque_vendas
   resources :tutors do
-    get 'animals', on: :member # cria o endpoint /tutors/:id/animals
+    get 'animals', on: :member
   end
   resources :funcionarios
   resources :cargos
 
+  resources :exames do
+    get 'by_consulta/:consulta_id', on: :collection, action: 'by_consulta'
+    get 'by_animal/:animal_id', on: :collection, action: 'by_animal'
+    get 'by_funcionario/:funcionario_id', on: :collection, action: 'by_funcionario'
+    get 'by_tutor/:tutor_id', on: :collection, action: 'by_tutor'
+  end
+
   resources :animals do
-    get 'consulta', on: :member # Cria a rota /animals/:id/consultations
+    get 'consulta', on: :member
   end
 
   resources :consultas do
