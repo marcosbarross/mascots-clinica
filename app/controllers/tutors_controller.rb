@@ -1,6 +1,6 @@
 class TutorsController < ApplicationController
   before_action :set_tutor, only: %i[show update destroy animals]
-  skip_before_action :verify_authenticity_token  # Se necessário para desabilitar CSRF para testes via Postman
+   # Se necessário para desabilitar CSRF para testes via Postman
 
   # GET /tutors.json
   def index

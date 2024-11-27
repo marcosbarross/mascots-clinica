@@ -1,7 +1,7 @@
 class FuncionariosController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:create]
   before_action :set_funcionario, only: %i[ show update destroy ]
-  skip_before_action :verify_authenticity_token
-
+  
   # GET /funcionarios or /funcionarios.json
   def index
     @funcionarios = Funcionario.all
@@ -16,12 +16,25 @@ class FuncionariosController < ApplicationController
   # POST /funcionarios or /funcionarios.json
   def create
     @funcionario = Funcionario.new(funcionario_params)
-    if @funcionario.save
-      render json: @funcionario, status: :created, location: @funcionario
-    else
-      render json: @funcionario.errors, status: :unprocessable_entity
+  
+    # Criar o User do Devise associado
+    user = User.new(
+      email: @funcionario.login,
+      password: @funcionario.senha
+    )
+  
+    ActiveRecord::Base.transaction do
+      # Salvar o User e associá-lo ao Funcionario
+      user.save!
+      @funcionario.user_id = user.id
+      @funcionario.save!
     end
+  
+    render json: @funcionario, status: :created, location: @funcionario
+  rescue ActiveRecord::RecordInvalid => e
+    render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
   end
+  
 
   # PATCH/PUT /funcionarios/1 or /funcionarios/1.json
   def update

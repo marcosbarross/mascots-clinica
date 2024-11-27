@@ -1,6 +1,6 @@
 class CargosController < ApplicationController
     before_action :set_cargo, only: %i[ show update destroy ]
-    skip_before_action :verify_authenticity_token
+    
 
     def index
         @cargos = Cargo.all

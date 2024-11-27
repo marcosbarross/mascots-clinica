@@ -1,6 +1,6 @@
 class ExamesController < ApplicationController
   before_action :set_exame, only: %i[ show update destroy ]
-  skip_before_action :verify_authenticity_token
+  
 
   # GET /exames or /exames.json
   def index

@@ -2,10 +2,13 @@ source "https://rubygems.org"
 
 ruby "3.0.3"
 
-
 gem "rails", "~> 7.1.4", ">= 7.1.4.2"
 
 gem 'active_model_serializers', '~> 0.10.14'
+
+gem 'devise', '4.9'
+
+gem 'devise_token_auth', '1.2.3'
 
 gem "pg", "~> 1.1"
 
@@ -21,8 +24,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'letter_opener', '~> 1.4', '>= 1.4.1'
 
 end
 
-gem "devise_token_auth", "~> 1.2"
+# Gemfile

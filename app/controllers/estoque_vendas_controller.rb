@@ -1,6 +1,5 @@
 class EstoqueVendasController < ApplicationController
   before_action :set_estoque_venda, only: %i[ show update destroy ]
-  skip_before_action :verify_authenticity_token
 
   # GET /estoque_vendas or /estoque_vendas.json
   def index

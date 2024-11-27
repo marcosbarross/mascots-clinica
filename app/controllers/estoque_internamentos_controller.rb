@@ -1,6 +1,5 @@
 class EstoqueInternamentosController < ApplicationController
   before_action :set_estoque_internamento, only: %i[ show update destroy ]
-  skip_before_action :verify_authenticity_token
 
   # GET /estoque_internamentos or /estoque_internamentos.json
   def index

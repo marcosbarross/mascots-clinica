@@ -25,3 +25,4 @@ EXPOSE 3000
 
 # Inicializa o servidor Rails
 CMD ["rails", "server", "-b", "0.0.0.0"]
+
