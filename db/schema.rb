@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_27_144158) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_27_225129) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -84,7 +84,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_144158) do
     t.bigint "cargo_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
     t.index ["cargo_id"], name: "index_funcionarios_on_cargo_id"
+    t.index ["user_id"], name: "index_funcionarios_on_user_id"
   end
 
   create_table "internamentos", force: :cascade do |t|
@@ -121,9 +123,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_144158) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -143,6 +145,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_144158) do
   add_foreign_key "estoque_internamentos", "internamentos"
   add_foreign_key "exames", "consultas"
   add_foreign_key "funcionarios", "cargos"
+  add_foreign_key "funcionarios", "users"
   add_foreign_key "internamentos", "consultas"
   add_foreign_key "prescricao_medicas", "consultas"
 end
