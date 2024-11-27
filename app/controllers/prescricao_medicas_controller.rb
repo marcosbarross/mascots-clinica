@@ -1,6 +1,6 @@
 class PrescricaoMedicasController < ApplicationController
   before_action :set_prescricao_medica, only: %i[ show update destroy ]
-  skip_before_action :verify_authenticity_token
+ 
 
   # GET /prescricao_medicas or /prescricao_medicas.json
   def index

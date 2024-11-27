@@ -1,4 +1,7 @@
-class ApplicationController < ActionController::Base
-        include DeviseTokenAuth::Concerns::SetUserByToken
-    protect_from_forgery with: :null_session
+class ApplicationController < ActionController::API
+  include DeviseTokenAuth::Concerns::SetUserByToken
+
+  # Remove a verificação CSRF para evitar erros
+
+  before_action :authenticate_user!, unless: :devise_controller?
 end

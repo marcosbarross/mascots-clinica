@@ -1,6 +1,6 @@
 class ConsultasController < ApplicationController
-  before_action :set_consulta, only: %i[ show update destroy ]
-  skip_before_action :verify_authenticity_token
+  before_action :set_consulta, only: %i[show update destroy]
+ 
 
   # GET /Consulta or /Consulta.json
   def index
