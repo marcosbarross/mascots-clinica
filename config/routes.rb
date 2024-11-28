@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :animals
   resources :funcionarios
   resources :cargos
+  resources :consultas
 
   resources :tutors do
     get 'animals', on: :member
