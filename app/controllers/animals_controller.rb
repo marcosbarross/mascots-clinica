@@ -1,6 +1,6 @@
 class AnimalsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_animal, only: %i[ show update destroy consulta]
-  skip_before_action :verify_authenticity_token
 
   # GET /animals or /animals.json
   def index
@@ -38,7 +38,7 @@ class AnimalsController < ApplicationController
     head :no_content
   end
 
-# GET /animals/:id/consulta
+  # GET /animals/:id/consulta
   # Retorna todas as consultas associadas a um animal específico
   def consulta
     @consultas = @animal.consultas
@@ -56,5 +56,4 @@ class AnimalsController < ApplicationController
   def animal_params
     params.require(:animal).permit(:nome, :idade, :especie, :raca, :peso, :tutor_id)
   end
-
 end

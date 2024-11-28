@@ -1,6 +1,6 @@
 class TutorsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_tutor, only: %i[show update destroy animals]
-   # Se necessário para desabilitar CSRF para testes via Postman
 
   # GET /tutors.json
   def index
@@ -38,8 +38,7 @@ class TutorsController < ApplicationController
     head :no_content
   end
 
-# GET /tutors/:id/animals
-  # Exibe todos os animais associados a um tutor específico
+  # GET /tutors/:id/animals
   def animals
     @animals = @tutor.animals
     render json: @animals
@@ -54,5 +53,4 @@ class TutorsController < ApplicationController
   def tutor_params
     params.require(:tutor).permit(:nome, :endereco, :telefone, :email)
   end
-  
 end
